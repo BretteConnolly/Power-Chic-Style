@@ -66,4 +66,12 @@ Further applications:
 
 <img width="331" alt="image" src="https://user-images.githubusercontent.com/79230918/175112451-dec540c6-dcb5-456e-959c-fe343ea8a949.png">
 
+<img width="330" alt="image" src="https://user-images.githubusercontent.com/79230918/175114463-fe5bb7ef-18ec-4aba-97a7-5378845e0836.png">
+
+<img width="329" alt="image" src="https://user-images.githubusercontent.com/79230918/175114496-dd9de912-1630-4bef-8ef1-edc626c7d1a2.png">
+
+<img width="328" alt="image" src="https://user-images.githubusercontent.com/79230918/175114521-4bc7e3ac-7d73-4893-8987-e7c2cc9112e4.png">
+
+<img width="329" alt="image" src="https://user-images.githubusercontent.com/79230918/175114542-3c233449-9728-43e3-bd22-32df664f3a69.png">
+
 
