@@ -53,7 +53,7 @@ def main():
   max_wears = days_elapsed / NONREPEAT_PERIOD # Maximum number of times the same item could be worn during the entire period, if it was worn only an average of once per two-month period
 
   # Data on items in each category, in alphabetical order in main function so user can easily update after each new wear. Data in main allows for easy daily updates. 
-    dresses = {"AFRM": 5, "All Saints -- Picolina": 6, "Banana Republic (floral)": 5, "Banana Republic (red)": 7, "Banana Republic (sweater)": 4, "Banana Republic (tweed)": 6, "Banana Republic (white)": 4, "Collectif": 2, "Erin by Erin Fetherston": 6, "Forever 21 (fuchsia)": 6, "Forever 21(navy)": 7, "Forever 21 (tiles)": 6, "Forever 21 Twist": 6, "H&M (black knit)": 7, "Handkerchief hem": 6, "Hell Bunny Vixen": 6, "Juicy Couture": 6, "Kaileigh -- Amandine": 6, "Kaileigh -- Kaela": 7, "Marni": 7, "Melrose and Market": 4, "Metro Style": 6, "Mossimo": 6, "Mystic": 7, "Pantagio": 0, "Rampage": 6, "Rose-Marie Seoir": 6, "See by Chloe": 6, "Vivoli": 4, "Voodoo Vixen": 1, "Xhilaration (black)": 6, "Xhilaration (purple)": 6, "XOXO": 5}
+  dresses = {"AFRM": 5, "All Saints -- Picolina": 6, "Banana Republic (floral)": 5, "Banana Republic (red)": 7, "Banana Republic (sweater)": 4, "Banana Republic (tweed)": 6, "Banana Republic (white)": 4, "Collectif": 2, "Erin by Erin Fetherston": 6, "Forever 21 (fuchsia)": 6, "Forever 21(navy)": 7, "Forever 21 (tiles)": 6, "Forever 21 Twist": 6, "H&M (black knit)": 7, "Handkerchief hem": 6, "Hell Bunny Vixen": 6, "Juicy Couture": 6, "Kaileigh -- Amandine": 6, "Kaileigh -- Kaela": 7, "Marni": 7, "Melrose and Market": 4, "Metro Style": 6, "Mossimo": 6, "Mystic": 7, "Pantagio": 0, "Rampage": 6, "Rose-Marie Seoir": 6, "See by Chloe": 6, "Vivoli": 4, "Voodoo Vixen": 1, "Xhilaration (black)": 6, "Xhilaration (purple)": 6, "XOXO": 5}
 
   jumpsuits = {"Banana Republic": 6, "Forever 21 (rose)": 6, "Kaileigh -- Rica": 6, "MSGM": 6, "Red Valentino": 6, "Rules of Etiquette": 6, "Xhilaration (black)": 6, "Xhilaration (red)": 6}
 
@@ -176,7 +176,7 @@ def main():
   christmas = {"Accutime": 7, "Born Famous": 4, "Christmas tree necklace": 2, "Claire's (bow clips)": 4, "Claire's (Santa glasses)": 5, "Claire's (snowman)": 8, "Gyothrig (green)": 6, "Gyothrig (red)": 9}
 
   
-  # Storing the proportional surplus stat as its own variable outside get_stats allows the what_to_buy function to use it later
+  #Storing the proportional surplus stat as its own variable outside get_stats allows the what_to_buy function to use it later
   dress_proportional_surplus = get_stats(dresses, max_wears)
   jumpsuit_proportional_surplus = get_stats(jumpsuits, max_wears)
   top_proportional_surplus = get_stats(tops, max_wears)
