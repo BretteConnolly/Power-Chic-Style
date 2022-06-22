@@ -1,4 +1,4 @@
-Outfit generator and wardrobe management tool. Keeps track of the number of wears of each item, with a goal of every item in a category to be worn an equal number of times. 
+Outfit generator and wardrobe management tool. Keeps track of the number of wears of each item, with two goals: not wearing the same item more than once every two months, on average, and wearing every item in a category an equal number of times. 
 
 What this program does:
 -- Stores data on number of wears for each item, grouped into 56 categories (e.g., dresses, tops)
