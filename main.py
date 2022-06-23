@@ -147,7 +147,7 @@ def main():
 
   evening_tops = {"ASTR": 1, "Forever 21 (gray)": 0, "Gili (gold)": 1, "Gili (light gold)": 5, "Lucca": 3}
 
-  evening_skirts = {"Forever 21 (leopard)": 1, "Forever 21 (polka dot)": 0, "Forever 21 (striped": 0}
+  evening_skirts = {"Forever 21 (leopard)": 1, "Forever 21 (polka dot)": 0, "Forever 21 (striped)": 0}
 
   evening_jackets = {"Grass": 9}
 
@@ -165,7 +165,7 @@ def main():
 
   beach_shoes = {"Beach Mania": 4, "Havaianas": 4}
 
-  festival = {"Amazon (tutus)": 1, "David Dalrymple (bottoms)": 0, "David Dalrymple (top)": 1, "Pride bracelet": 0}
+  festival = {"Amazon (tutus)": 1, "David Dalrymple (bottoms)": 0, "David Dalrymple (top)": 1}
 
   st_patricks_day = {"Safeway": 4}
 
