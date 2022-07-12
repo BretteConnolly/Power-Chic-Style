@@ -16,9 +16,8 @@ What this program entails:
 -- what_to_buy function: ranks all categories in ascending order by proportional surplus to identify which categories need additional items the most
 
 Further applications:
--- Storing the dataset in its own folder while still being able to implement it in main and update it daily
 -- More outfit generation data to calculate the probability of generating an outfit the user likes, and of needing a second try, third try, and so on
--- Using object-oriented programming, or creating a dictionary for each individual item, to keep track of additional values like: date last worn, place/event/occasion last worn, need for repairs, no longer available to wear, good for work, and so on
+-- Using object-oriented programming, or creating a dictionary for each individual item, to keep track of additional values like: date last worn, place/event/occasion last worn, need for repairs, good for work, and so on
 
  <img width="275" alt="image" src="https://user-images.githubusercontent.com/79230918/175111448-ad7c7658-d590-4a0e-bd67-ff2a2c414dd3.png">
 
