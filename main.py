@@ -1,12 +1,12 @@
-from dataset import * #* instead of importing 124 dictionaries by name
+from dataset import * # * instead of importing 124 dictionaries by name
 from datetime import date
+from math import ceil, floor
 
 
 
 def num_of_days(date1, date2):
     days_elapsed = (date2 - date1).days
     return days_elapsed
-    print("Days Elapsed: ", days_elapsed)
 
 def get_items(dict): # Displays items from a given category that have been worn the least
   minimum = min(dict.values())
@@ -23,14 +23,23 @@ def simple_sort(dict): # Lists in order of wears for one item category
 def get_stats(dict1, dict2, max_wears):
   vals1 = [v for _, v in dict1.items()]
   vals2 = [v for _, v in dict2.items()]
+  
   total_wears = sum(vals1) + sum(vals2)
-  average = total_wears / (len(dict1) + len(dict2))
-  minimum_requirement = round(total_wears / max_wears, 2) # Minimum number of items from a category required to not wear the same item twice per two-month period (or other length of time chosen by the user)
+  minimum_requirement = ceil(total_wears / max_wears)
+  # Minimum number of items from a category required to not wear the same item twice per two-month period (or other length of time chosen by the user). Ceil is a conservative measure of how many items the user needs. For example, if they technically need half an item, to say they need 1 item instead of 0 errs on the side of caution. 
+  if sum(vals1) == 0:
+    average = total_wears / len(dict2)
+    surplus = floor(-minimum_requirement)
+  else:
+    average = round(total_wears / (len(dict1) + len(dict2)))
   # Setting floating-point number precision to 2 decimal places for readability
-  surplus = round(len(dict1) - minimum_requirement, 2) # How many more items the user has versus what they need. A deficit would be displayed as a negative surplus.
-  proportional_surplus = round(surplus / minimum_requirement, 2) # The surplus as a proportion of the minimum items required is a standardized approach that weighs, for example, having two pairs of gloves when you only need one differently from having 10 dresses when you only need nine, despite the surpluses in each example being the same number of items
+    surplus = floor(len(dict1) - minimum_requirement) # How many more items the user has versus what they need. A deficit would be displayed as a negative surplus. Floor function instead of rounding because fashion items are discrete, and floor is a more conservative measure than ceil (i.e., if you technically need half an item, having a -1 surplus instead of a 0 surplus -- that is, needing 1 item instead of 0 items -- is erring on the side of caution).
+  proportional_surplus = round(surplus / minimum_requirement, 2) # The surplus as a proportion of the minimum items required is a standardized approach that weighs, for example, having two pairs of gloves when you only need one differently from having 10 dresses when you only need nine, despite the surpluses in each example being the same number of items.
   print(get_items(dict1))
-  print("Total Items: ", len(dict1))
+  if sum(vals1) == 0:
+    print("Total Items: 0")
+  else:
+    print("Total Items: ", len(dict1))
   print("Total Wears: ", total_wears)
   print("Average Wears: ", average)
   print("Minimum Requirement: ", minimum_requirement)
@@ -55,7 +64,10 @@ def what_to_buy(dict):
 def main():
   NONREPEAT_PERIOD = 62 # Goal of not wearing the same item more than once per two-month period, on average. User can set their nonrepeat period of choice.
   days_elapsed = num_of_days(date(2018, 1, 1), date.today()) # Enters the date user started tracking wears and today's date
+  print("Days Elapsed: ", days_elapsed)
+  print("Nonrepeat Period: ", NONREPEAT_PERIOD, " days")
   max_wears = days_elapsed / NONREPEAT_PERIOD # Maximum number of times the same item could be worn during the entire period, if it was worn only an average of once per two-month period
+  print(max_wears)
 
   # Storing the proportional surplus stat as its own variable outside get_stats allows the what_to_buy function to use it later
   # Including items that were worn, but are no longer available to be worn now (damaged, lost, etc.) is important for accuracy of the number of wears in a category and the number of new items needed (i.e., how many unavailable items need to be replaced)
@@ -64,6 +76,7 @@ def main():
   top_proportional_surplus = get_stats(tops, tops_not_available, max_wears)
   sweater_proportional_surplus = get_stats(sweaters, sweaters_not_available, max_wears)
   skirt_proportional_surplus = get_stats(skirts, skirts_not_available, max_wears)
+  shorts_proportional_surplus = get_stats(shorts, shorts_not_available, max_wears)
   jeans_proportional_surplus = get_stats(jeans, jeans_not_available, max_wears)
   pants_proportional_surplus = get_stats(pants, pants_not_available, max_wears)
   hosiery_proportional_surplus = get_stats(hosiery, hosiery_not_available, max_wears)
@@ -248,116 +261,116 @@ def main():
   print("Shopping Totes\n")
   get_stats(shopping_totes, shopping_totes_not_available, max_wears)
 
-  # print("Cosmetics Bags\n")
-  # get_stats(cosmetics_bags, cosmetics_bags_not_available, max_wears)
+  print("Cosmetics Bags\n")
+  get_stats(cosmetics_bags, cosmetics_bags_not_available, max_wears)
 
-  # print("Coin Purses\n")
-  # get_stats(coin_purses, coin_purses_not_available, max_wears)
+  print("Coin Purses\n")
+  get_stats(coin_purses, coin_purses_not_available, max_wears)
 
-  # print("Evening Dresses\n")
-  # get_stats(evening_dresses, evening_dresses_not_available, max_wears)
+  print("Evening Dresses\n")
+  get_stats(evening_dresses, evening_dresses_not_available, max_wears)
 
-  # print("Evening Jumpsuits\n")
-  # get_stats(evening_jumpsuits, evening_jumpsuits_not_available, max_wears)
+  print("Evening Jumpsuits\n")
+  get_stats(evening_jumpsuits, evening_jumpsuits_not_available, max_wears)
 
-  # print("Evening Tops\n")
-  # get_stats(evening_tops, evening_tops_not_available, max_wears)
+  print("Evening Tops\n")
+  get_stats(evening_tops, evening_tops_not_available, max_wears)
 
-  # print("Evening Skirts\n")
-  # get_stats(evening_skirts, evening_skirts_not_available, max_wears)
+  print("Evening Skirts\n")
+  get_stats(evening_skirts, evening_skirts_not_available, max_wears)
 
-  # print("Evening Jackets\n")
-  # get_stats(evening_jackets, evening_jackets_not_available, max_wears)
+  print("Evening Jackets\n")
+  get_stats(evening_jackets, evening_jackets_not_available, max_wears)
 
-  # print("Evening Shoes\n")
-  # get_stats(evening_shoes, evening_shoes_not_available, max_wears)
+  print("Evening Shoes\n")
+  get_stats(evening_shoes, evening_shoes_not_available, max_wears)
 
-  # print("Evening Accessories\n")
-  # get_stats(evening_accessories, evening_accessories_not_available, max_wears)
+  print("Evening Accessories\n")
+  get_stats(evening_accessories, evening_accessories_not_available, max_wears)
 
-  # print("Evening Bags\n")
-  # get_stats(evening_bags, evening_bags_not_available, max_wears)
+  print("Evening Bags\n")
+  get_stats(evening_bags, evening_bags_not_available, max_wears)
 
-  # print("Workout\n")
-  # get_stats(workout, workout_not_available, max_wears)
+  print("Workout\n")
+  get_stats(workout, workout_not_available, max_wears)
 
-  # print("Swim Tops\n")
-  # get_stats(swim_tops, swim_tops_not_available, max_wears)
+  print("Swim Tops\n")
+  get_stats(swim_tops, swim_tops_not_available, max_wears)
 
-  # print("Swim Bottoms\n")
-  # get_stats(swim_bottoms, swim_bottoms_not_available, max_wears)
+  print("Swim Bottoms\n")
+  get_stats(swim_bottoms, swim_bottoms_not_available, max_wears)
 
-  # print("Beach Shoes\n")
-  # get_stats(beach_shoes, beach_shoes_not_available, max_wears)
+  print("Beach Shoes\n")
+  get_stats(beach_shoes, beach_shoes_not_available, max_wears)
 
-  # print("Festival\n")
-  # get_stats(festival, festival_not_available, max_wears)
+  print("Festival\n")
+  get_stats(festival, festival_not_available, max_wears)
 
-  # print("St. Patrick's Day\n")
-  # get_stats(st_patricks_day, st_patricks_day_not_available, max_wears)
+  print("St. Patrick's Day\n")
+  get_stats(st_patricks_day, st_patricks_day_not_available, max_wears)
 
-  # print("Easter\n")
-  # get_stats(easter, easter_not_available, max_wears)
+  print("Easter\n")
+  get_stats(easter, easter_not_available, max_wears)
 
-  # print("Halloween\n")
-  # get_stats(halloween, halloween_not_available, max_wears)
+  print("Halloween\n")
+  get_stats(halloween, halloween_not_available, max_wears)
 
-  # print("Christmas\n")
-  # get_stats(christmas, christmas_not_available, max_wears)
+  print("Christmas\n")
+  get_stats(christmas, christmas_not_available, max_wears)
   
-  # #Calls each item of a sample outfit
-  # print("Outfit 1\n")
-  # outfit_generator(0, simple_sort(dresses), simple_sort(jackets), simple_sort(heels), simple_sort(earrings), simple_sort(necklaces), simple_sort(bracelets), simple_sort(watches), simple_sort(rings), simple_sort(hair_brooches), simple_sort(sunglasses), simple_sort(masks), simple_sort(totes))
-  # print("\n") # Creates space between sample outfits for readability
+  #Calls each item of a sample outfit
+  print("Outfit 1\n")
+  outfit_generator(0, simple_sort(dresses), simple_sort(jackets), simple_sort(heels), simple_sort(earrings), simple_sort(necklaces), simple_sort(bracelets), simple_sort(watches), simple_sort(rings), simple_sort(hair_brooches), simple_sort(sunglasses), simple_sort(masks), simple_sort(totes))
+  print("\n") # Creates space between sample outfits for readability
   
-  # # Calls each item of a different sample outfit
-  # print("Outfit 2\n")
-  # outfit_generator(0, simple_sort(tops), simple_sort(skirts), simple_sort(light_coats), simple_sort(flats), simple_sort(spring_scarves), simple_sort(masks), simple_sort(totes))
-  # print("\n")
+  # Calls each item of a different sample outfit
+  print("Outfit 2\n")
+  outfit_generator(0, simple_sort(tops), simple_sort(skirts), simple_sort(light_coats), simple_sort(flats), simple_sort(spring_scarves), simple_sort(masks), simple_sort(totes))
+  print("\n")
   
-  # # Calls each item of a different sample outfit
-  # print("Outfit 3\n")
-  # outfit_generator(0, simple_sort(sweaters), simple_sort(pants), simple_sort(heavy_coats), simple_sort(boots), simple_sort(winter_scarves), simple_sort(winter_hats), simple_sort(masks), simple_sort(gloves), simple_sort(umbrellas), simple_sort(totes))
-  # print("\n")
+  # Calls each item of a different sample outfit
+  print("Outfit 3\n")
+  outfit_generator(0, simple_sort(sweaters), simple_sort(pants), simple_sort(heavy_coats), simple_sort(boots), simple_sort(winter_scarves), simple_sort(winter_hats), simple_sort(masks), simple_sort(gloves), simple_sort(umbrellas), simple_sort(totes))
+  print("\n")
 
-  #  # Calls each item of a different sample outfit
-  # print("Outfit 4\n")
-  # outfit_generator(0, simple_sort(tops), simple_sort(jeans), simple_sort(heavy_coats), simple_sort(sneakers), simple_sort(ponies), simple_sort(masks), simple_sort(handbags), simple_sort(coin_purses))
-  # print("\n")
+   # Calls each item of a different sample outfit
+  print("Outfit 4\n")
+  outfit_generator(0, simple_sort(tops), simple_sort(jeans), simple_sort(heavy_coats), simple_sort(sneakers), simple_sort(ponies), simple_sort(masks), simple_sort(handbags), simple_sort(coin_purses))
+  print("\n")
 
-  # print("Outfit 5\n")
-  # outfit_generator(0, simple_sort(jumpsuits), simple_sort(ankle_boots), simple_sort(brooches), simple_sort(eyeglasses), simple_sort(masks), simple_sort(handbags)) 
-  # print("\n")
+  print("Outfit 5\n")
+  outfit_generator(0, simple_sort(jumpsuits), simple_sort(ankle_boots), simple_sort(brooches), simple_sort(eyeglasses), simple_sort(masks), simple_sort(handbags)) 
+  print("\n")
 
-  # print("Outfit 6\n")
-  # outfit_generator(0, simple_sort(dresses), simple_sort(hosiery), simple_sort(flats), simple_sort(belts), simple_sort(headbands), simple_sort(glasses), simple_sort(masks), simple_sort(handbags))
-  # print("\n")
+  print("Outfit 6\n")
+  outfit_generator(0, simple_sort(dresses), simple_sort(hosiery), simple_sort(flats), simple_sort(belts), simple_sort(headbands), simple_sort(glasses), simple_sort(masks), simple_sort(handbags))
+  print("\n")
 
-  # print("Outfit 7\n")
-  # outfit_generator(0, simple_sort(tops), simple_sort(pants), simple_sort(flats), simple_sort(ties), simple_sort(masks), simple_sort(totes))
-  # print("\n")
+  print("Outfit 7\n")
+  outfit_generator(0, simple_sort(tops), simple_sort(pants), simple_sort(flats), simple_sort(ties), simple_sort(masks), simple_sort(totes))
+  print("\n")
 
-  # print("Outfit 8\n")
-  # outfit_generator(0, simple_sort(swim_tops), simple_sort(swim_bottoms), simple_sort(beach_shoes), simple_sort(summer_hats), simple_sort(shopping_totes))
-  # print("\n")
+  print("Outfit 8\n")
+  outfit_generator(0, simple_sort(swim_tops), simple_sort(swim_bottoms), simple_sort(beach_shoes), simple_sort(summer_hats), simple_sort(shopping_totes))
+  print("\n")
 
-  # print("Outfit 9\n")
-  # outfit_generator(0, simple_sort(dresses), simple_sort(sandals), simple_sort(sunglasses), simple_sort(masks), simple_sort(handbags))
-  # print("\n")
+  print("Outfit 9\n")
+  outfit_generator(0, simple_sort(dresses), simple_sort(sandals), simple_sort(sunglasses), simple_sort(masks), simple_sort(handbags))
+  print("\n")
 
-  # print("Outfit 10\n")
-  # outfit_generator(0, simple_sort(evening_dresses), simple_sort(evening_jackets), simple_sort(evening_shoes), simple_sort(evening_accessories), simple_sort(evening_bags))
-  # print("\n")
+  print("Outfit 10\n")
+  outfit_generator(0, simple_sort(evening_dresses), simple_sort(evening_jackets), simple_sort(evening_shoes), simple_sort(evening_accessories), simple_sort(evening_bags))
+  print("\n")
 
-  # print("Outfit 11\n")
-  # outfit_generator(0, simple_sort(evening_tops), simple_sort(evening_skirts), simple_sort(evening_shoes), simple_sort(evening_bags))
-  # print("\n")
+  print("Outfit 11\n")
+  outfit_generator(0, simple_sort(evening_tops), simple_sort(evening_skirts), simple_sort(evening_shoes), simple_sort(evening_bags))
+  print("\n")
 
-  # print("Outfit 12\n")
-  # outfit_generator(0, simple_sort(evening_jumpsuits), simple_sort(evening_shoes), simple_sort(evening_bags))
-  # print("\n")
+  print("Outfit 12\n")
+  outfit_generator(0, simple_sort(evening_jumpsuits), simple_sort(evening_shoes), simple_sort(evening_bags))
+  print("\n")
   
-  categories = {"dresses": dress_proportional_surplus, "jumpsuits": jumpsuit_proportional_surplus, "tops": top_proportional_surplus, "sweaters": sweater_proportional_surplus, "skirts": skirt_proportional_surplus, "jeans": jeans_proportional_surplus, "pants": pants_proportional_surplus, "hosiery": hosiery_proportional_surplus, "jackets": jacket_proportional_surplus, "light coats": light_coat_proportional_surplus, "heavy coats": heavy_coat_proportional_surplus, "ankle boots": ankle_boots_proportional_surplus, "heels": heels_proportional_surplus, "boots": boots_proportional_surplus, "flats": flats_proportional_surplus, "sandals": sandals_proportional_surplus, "sneakers": sneakers_proportional_surplus, "earrings": earrings_proportional_surplus, "necklaces": necklaces_proportional_surplus, "brooches": brooches_proportional_surplus, "ties": ties_proportional_surplus, "spring scarves": spring_scarves_proportional_surplus, "winter scarves": winter_scarves_proportional_surplus, "belts": belts_proportional_surplus, "bracelets": bracelets_proportional_surplus, "watches": watches_proportional_surplus, "rings": rings_proportional_surplus, "hair brooches": hair_brooches_proportional_surplus, "clips": clips_proportional_surplus, "ponies": ponies_proportional_surplus, "headbands": headbands_proportional_surplus, "summer hats": summer_hats_proportional_surplus, "winter hats": winter_hats_proportional_surplus, "glasses": glasses_proportional_surplus, "eyeglasses": eyeglasses_proportional_surplus, "sunglasses": sunglasses_proportional_surplus, "masks": masks_proportional_surplus, "gloves": gloves_proportional_surplus, "umbrellas": umbrellas_proportional_surplus,"handbags": handbags_proportional_surplus, "totes": totes_proportional_surplus, "shopping totes": shopping_totes_proportional_surplus, "cosmetics bags": cosmetics_bags_proportional_surplus, "coin purses": coin_purses_proportional_surplus, "evening dresses": evening_dresses_proportional_surplus, "evening tops": evening_tops_proportional_surplus, "evening skirts": evening_skirts_proportional_surplus, "evening jackets": evening_jackets_proportional_surplus, "evening shoes": evening_shoes_proportional_surplus, "evening accessories": evening_accessories_proportional_surplus, "evening bags": evening_bags_proportional_surplus, "workout": workout_proportional_surplus, "swim tops": swim_tops_proportional_surplus, "swim bottoms": swim_bottoms_proportional_surplus, "beach shoes": beach_shoes_proportional_surplus, "festival": festival_proportional_surplus, "St. Patrick's Day": st_patricks_day_proportional_surplus, "Easter": easter_proportional_surplus, "Halloween": halloween_proportional_surplus, "Christmas": christmas_proportional_surplus}
+  categories = {"dresses": dress_proportional_surplus, "jumpsuits": jumpsuit_proportional_surplus, "tops": top_proportional_surplus, "sweaters": sweater_proportional_surplus, "skirts": skirt_proportional_surplus, "shorts": shorts_proportional_surplus, "jeans": jeans_proportional_surplus, "pants": pants_proportional_surplus, "hosiery": hosiery_proportional_surplus, "jackets": jacket_proportional_surplus, "light coats": light_coat_proportional_surplus, "heavy coats": heavy_coat_proportional_surplus, "ankle boots": ankle_boots_proportional_surplus, "heels": heels_proportional_surplus, "boots": boots_proportional_surplus, "flats": flats_proportional_surplus, "sandals": sandals_proportional_surplus, "sneakers": sneakers_proportional_surplus, "earrings": earrings_proportional_surplus, "necklaces": necklaces_proportional_surplus, "brooches": brooches_proportional_surplus, "ties": ties_proportional_surplus, "spring scarves": spring_scarves_proportional_surplus, "winter scarves": winter_scarves_proportional_surplus, "belts": belts_proportional_surplus, "bracelets": bracelets_proportional_surplus, "watches": watches_proportional_surplus, "rings": rings_proportional_surplus, "hair brooches": hair_brooches_proportional_surplus, "clips": clips_proportional_surplus, "ponies": ponies_proportional_surplus, "headbands": headbands_proportional_surplus, "summer hats": summer_hats_proportional_surplus, "winter hats": winter_hats_proportional_surplus, "glasses": glasses_proportional_surplus, "eyeglasses": eyeglasses_proportional_surplus, "sunglasses": sunglasses_proportional_surplus, "masks": masks_proportional_surplus, "gloves": gloves_proportional_surplus, "umbrellas": umbrellas_proportional_surplus,"handbags": handbags_proportional_surplus, "totes": totes_proportional_surplus, "shopping totes": shopping_totes_proportional_surplus, "cosmetics bags": cosmetics_bags_proportional_surplus, "coin purses": coin_purses_proportional_surplus, "evening dresses": evening_dresses_proportional_surplus, "evening tops": evening_tops_proportional_surplus, "evening skirts": evening_skirts_proportional_surplus, "evening jackets": evening_jackets_proportional_surplus, "evening shoes": evening_shoes_proportional_surplus, "evening accessories": evening_accessories_proportional_surplus, "evening bags": evening_bags_proportional_surplus, "workout": workout_proportional_surplus, "swim tops": swim_tops_proportional_surplus, "swim bottoms": swim_bottoms_proportional_surplus, "beach shoes": beach_shoes_proportional_surplus, "festival": festival_proportional_surplus, "St. Patrick's Day": st_patricks_day_proportional_surplus, "Easter": easter_proportional_surplus, "Halloween": halloween_proportional_surplus, "Christmas": christmas_proportional_surplus}
   
   what_to_buy(categories) # Lists new categories to buy from in order of priority. That said, if there is a surplus and not a deficit (i.e., the "surplus" variable is positive), then the user doesn't need anything new! 
 
