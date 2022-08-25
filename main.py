@@ -3,8 +3,6 @@ from datetime import date
 from math import ceil, floor
 from random import choice
 
-
-
 def num_of_days(date1, date2):
     days_elapsed = (date2 - date1).days
     return days_elapsed
@@ -20,7 +18,8 @@ def get_items(dict): # Displays items from a given category that have been worn 
 def simple_sort(dict): # Lists in order of wears for one item category
   simple_sort = sorted(dict.items(), key = lambda x: x[1], reverse = False)
   return simple_sort
-  
+
+# Option 1 for creating outfits: using the least-worn items
 def get_stats(dict1, dict2, max_wears):
   vals1 = [v for _, v in dict1.items()]
   vals2 = [v for _, v in dict2.items()]
@@ -50,11 +49,12 @@ def get_stats(dict1, dict2, max_wears):
   print(simple_sort(dict1), "\n")
   return proportional_surplus
 
+# Option 2 for creating outfits: random items
 def outfit_generator(max_wears, *args): #which categories to include in the outfit
   for arg in args:
     item = choice(list(arg.items())) #selects a random item from each category
     print(item) 
-  print("Max Wears: ", max_wears)
+  print("Max Wears: ", max_wears) #user can compare each item's wears to max_wears and choose not to wear those items that have already been worn the maximum number of times 
     
 def what_to_buy(dict):
   sort = sorted(dict.items(), key = lambda x: x[1], reverse = False)
@@ -65,7 +65,7 @@ def main():
   days_elapsed = num_of_days(date(2018, 1, 1), date.today()) # Enters the date user started tracking wears and today's date
   print("Days Elapsed: ", days_elapsed)
   print("Nonrepeat Period: ", NONREPEAT_PERIOD, " days")
-  max_wears = days_elapsed / NONREPEAT_PERIOD # Maximum number of times the same item could be worn during the entire period, if it was worn only an average of once per two-month period
+  max_wears = ceil(days_elapsed / NONREPEAT_PERIOD) # Maximum number of times the same item could be worn during the entire period, if it was worn only an average of once per two-month period
   print(max_wears)
 
   # Storing the proportional surplus stat as its own variable outside get_stats allows the what_to_buy function to use it later
@@ -170,14 +170,14 @@ def main():
   print("Heavy Coats\n")
   get_stats(heavy_coats, heavy_coats_not_available, max_wears)
 
+  print("Boots\n")
+  get_stats(boots, boots_not_available, max_wears)
+
   print("Ankle Boots\n")
   get_stats(ankle_boots, ankle_boots_not_available, max_wears)
 
   print("Heels\n")
   get_stats(heels, heels_not_available, max_wears)
-
-  print("Boots\n")
-  get_stats(boots, boots_not_available, max_wears)
 
   print("Flats\n")
   get_stats(flats, flats_not_available, max_wears)
@@ -322,15 +322,15 @@ def main():
   print("\n") # Creates space between sample outfits for readability
   
   print("Outfit 2\n")
-  outfit_generator(max_wears, tops, skirts, light_coats, flats, spring_scarves, masks, totes)
+  outfit_generator(max_wears, tops, skirts, light_coats, flats, spring_scarves, sunglasses, masks, totes)
   print("\n")
   
   print("Outfit 3\n")
-  outfit_generator(max_wears, sweaters, pants, heavy_coats, boots, winter_scarves, winter_hats, masks, gloves, umbrellas, totes)
+  outfit_generator(max_wears, sweaters, pants, heavy_coats, boots, winter_scarves, winter_hats, sunglasses, masks, gloves, umbrellas, totes)
   print("\n")
 
   print("Outfit 4\n")
-  outfit_generator(max_wears, tops, jeans, heavy_coats, sneakers, ponies, masks, handbags, coin_purses)
+  outfit_generator(max_wears, tops, jeans, heavy_coats, sneakers, ponies, sunglasses, masks, handbags, coin_purses)
   print("\n")
 
   print("Outfit 5\n")
@@ -338,15 +338,15 @@ def main():
   print("\n")
 
   print("Outfit 6\n")
-  outfit_generator(max_wears, dresses, hosiery, flats, belts, headbands, glasses, masks, handbags)
+  outfit_generator(max_wears, dresses, hosiery, flats, belts, headbands, glasses, sunglasses, masks, handbags)
   print("\n")
 
   print("Outfit 7\n")
-  outfit_generator(max_wears, tops, pants, flats, ties, masks, totes)
+  outfit_generator(max_wears, tops, pants, flats, ties, sunglasses, masks, totes)
   print("\n")
 
   print("Outfit 8\n")
-  outfit_generator(max_wears, swim_tops, swim_bottoms, beach_shoes, summer_hats, shopping_totes)
+  outfit_generator(max_wears, swim_tops, swim_bottoms, beach_shoes, summer_hats, sunglasses, shopping_totes)
   print("\n")
 
   print("Outfit 9\n")
