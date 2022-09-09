@@ -205,6 +205,9 @@ def main():
 
   print("Winter Scarves\n")
   get_stats(winter_scarves, winter_scarves, max_wears)
+    
+  print("Belts\n")
+  get_stats(belts, belts_not_available, max_wears)
 
   print("Bracelets\n")
   get_stats(bracelets, bracelets_not_available, max_wears)
