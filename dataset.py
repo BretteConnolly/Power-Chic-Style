@@ -170,6 +170,10 @@ shopping_totes = {"Athleta": 10, "Bike-to-Work Day": 11, "Buffalo Exchange": 25,
 
 shopping_totes_not_available = {"Marin Clean Energy": 1, "Owl Love You": 1, "Whistlestop": 1}
 
+wallets = {"Lark & Ives": 0, "Mahi": 10, "St. Patrick's": 10}
+
+wallets_not_available = {"None": 0}
+
 cosmetics_bags = {"Lancome": 26, "Modella (filigree floral)": 12, "Modella (leaves)": 2, "Modella (lipstick)": 11, "Modella (zebra)": 16, "Sanrio": 10, "St. Patrick's": 1, "Sephora": 8, "Thrive Causemetics (pink)": 13, "Thrive Causemetics (turquoise)": 2}
 
 cosmetics_bags_not_available = {"None": 0}
