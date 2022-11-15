@@ -27,20 +27,23 @@ def get_stats(dict1, dict2, max_wears):
   total_wears = sum(vals1) + sum(vals2)
   minimum_requirement = ceil(total_wears / max_wears)
   # Minimum number of items from a category required to not wear the same item twice per two-month period (or other length of time chosen by the user). Ceil is a conservative measure of how many items the user needs. For example, if they technically need half an item, to say they need 1 item instead of 0 errs on the side of caution. 
-  if sum(vals1) == 0:
-    average = total_wears / len(dict2)
-    surplus = floor(-minimum_requirement)
-  else:
-    average = round(total_wears / (len(dict1) + len(dict2)))
-    surplus = floor(len(dict1) - minimum_requirement) # How many more items the user has versus what they need. A deficit would be displayed as a negative surplus. Floor function instead of rounding because fashion items are discrete, and floor is a more conservative measure than ceil (i.e., if you technically need half an item, having a -1 surplus instead of a 0 surplus -- that is, needing 1 item instead of 0 items -- is erring on the side of caution).
-  proportional_surplus = round(surplus / minimum_requirement, 2) 
+  for key, value in dict1.items():
+    if value == "None":
+      average = total_wears / len(dict2)
+      surplus = floor(-minimum_requirement)
+    else:
+      average = round(total_wears / (len(dict1) + len(dict2)))
+      surplus = floor(len(dict1) - minimum_requirement) # How many more items the user has versus what they need. A deficit would be displayed as a negative surplus. Floor function instead of rounding because fashion items are discrete, and floor is a more conservative measure than ceil (i.e., if you technically need half an item, having a -1 surplus instead of a 0 surplus -- that is, needing 1 item instead of 0 items -- is erring on the side of caution).
+    proportional_surplus = round(surplus / minimum_requirement, 2) 
   # Setting floating-point number precision to 2 decimal places for readability
   # The surplus as a proportion of the minimum items required is a standardized approach that weighs, for example, having two pairs of gloves when you only need one differently from having 10 dresses when you only need nine, despite the surpluses in each example being the same number of items.
   print(get_items(dict1))
-  if sum(vals1) == 0:
-    print("Total Items: 0")
-  else:
-    print("Total Items: ", len(dict1))
+  for key, value in dict1.items():
+    if value == "None":
+      print("Total Items: 0")
+    else:
+      print("Total Items: ", len(dict1))
+      break
   print("Total Wears: ", total_wears)
   print("Average Wears: ", average)
   print("Minimum Requirement: ", minimum_requirement)
@@ -113,7 +116,7 @@ def main():
   handbags_proportional_surplus = get_stats(handbags, handbags_not_available, max_wears)
   totes_proportional_surplus = get_stats(totes, totes_not_available, max_wears)
   shopping_totes_proportional_surplus = get_stats(shopping_totes, shopping_totes_not_available, max_wears)
-  wallets_proportional_surplus = get_stats(wallets, wallets_not_available, max_wears)
+  wallets_proportional_surplus = get_stats (wallets, wallets_not_available, max_wears)
   cosmetics_bags_proportional_surplus = get_stats(cosmetics_bags, cosmetics_bags_not_available, max_wears)
   coin_purses_proportional_surplus = get_stats(coin_purses, coin_purses_not_available, max_wears)
   evening_dresses_proportional_surplus = get_stats(evening_dresses, evening_dresses_not_available, max_wears)
@@ -206,7 +209,7 @@ def main():
 
   print("Winter Scarves\n")
   get_stats(winter_scarves, winter_scarves, max_wears)
-    
+
   print("Belts\n")
   get_stats(belts, belts_not_available, max_wears)
 
@@ -263,10 +266,10 @@ def main():
 
   print("Shopping Totes\n")
   get_stats(shopping_totes, shopping_totes_not_available, max_wears)
-    
+
   print("Wallets\n")
   get_stats(wallets, wallets_not_available, max_wears)
-
+  
   print("Cosmetics Bags\n")
   get_stats(cosmetics_bags, cosmetics_bags_not_available, max_wears)
 
@@ -329,27 +332,27 @@ def main():
   print("\n") # Creates space between sample outfits for readability
   
   print("Outfit 2\n")
-  outfit_generator(max_wears, tops, skirts, light_coats, flats, spring_scarves, sunglasses, masks, totes)
+  outfit_generator(max_wears, tops, skirts, light_coats, flats, earrings, spring_scarves, sunglasses, masks, totes)
   print("\n")
   
   print("Outfit 3\n")
-  outfit_generator(max_wears, sweaters, pants, heavy_coats, boots, winter_scarves, winter_hats, sunglasses, masks, gloves, umbrellas, totes)
+  outfit_generator(max_wears, sweaters, pants, heavy_coats, boots, earrings, winter_scarves, winter_hats, sunglasses, masks, gloves, umbrellas, totes)
   print("\n")
 
   print("Outfit 4\n")
-  outfit_generator(max_wears, tops, jeans, heavy_coats, sneakers, ponies, sunglasses, masks, handbags, coin_purses)
+  outfit_generator(max_wears, tops, jeans, heavy_coats, sneakers, earrings, ponies, sunglasses, masks, handbags, coin_purses)
   print("\n")
 
   print("Outfit 5\n")
-  outfit_generator(max_wears, jumpsuits, ankle_boots, brooches, eyeglasses, masks, handbags)
+  outfit_generator(max_wears, jumpsuits, ankle_boots, earrings, brooches, eyeglasses, masks, handbags)
   print("\n")
 
   print("Outfit 6\n")
-  outfit_generator(max_wears, dresses, hosiery, flats, belts, headbands, glasses, sunglasses, masks, handbags)
+  outfit_generator(max_wears, dresses, hosiery, flats, earrings, belts, headbands, glasses, sunglasses, masks, handbags)
   print("\n")
 
   print("Outfit 7\n")
-  outfit_generator(max_wears, tops, pants, flats, ties, sunglasses, masks, totes)
+  outfit_generator(max_wears, tops, pants, flats, earrings, ties, sunglasses, masks, totes)
   print("\n")
 
   print("Outfit 8\n")
@@ -357,7 +360,7 @@ def main():
   print("\n")
 
   print("Outfit 9\n")
-  outfit_generator(max_wears, dresses, sandals, sunglasses, masks, handbags)
+  outfit_generator(max_wears, dresses, sandals, earrings, sunglasses, masks, handbags)
   print("\n")
 
   print("Outfit 10\n")
