@@ -31,10 +31,3 @@ Further applications:
 -- More outfit generation data to calculate the probability of generating an outfit the user likes, and of needing a second try, third try, and so on
 
 -- Using object-oriented programming, or creating a dictionary for each individual item, to keep track of additional values like: date last worn, place/event/occasion last worn, need for repairs, good for work, and so on
-
-
-<img width="328" alt="image" src="https://user-images.githubusercontent.com/79230918/175114521-4bc7e3ac-7d73-4893-8987-e7c2cc9112e4.png">
-
-<img width="329" alt="image" src="https://user-images.githubusercontent.com/79230918/175114542-3c233449-9728-43e3-bd22-32df664f3a69.png">
-
-
